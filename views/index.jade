@@ -2,26 +2,29 @@ extends layout
 
 block content
   include nav
-  .container
-   .error=error
-   form.form(id="user", method="post", action="")
-    label Nombre
-    input(type="text", name="name")
-    label Email
-    input(type="text", name="email") 
-    input(type="submit", placeholder="Enviar", value="Suscribir")
+  .container(class="content")
+   .bg-danger=error
+   form.form-inline(id="user", method="post", action="")
+    .form-group
+      label(class="sr-only", for="name") Nombre
+      input(type="text", name="name", placeholder="Nombre" class="form-control")
+    .form-group
+      label(class="sr-only", for="email") Email
+      input(type="text", name="email", placeholder="Email" class="form-control") 
+    input.btn.btn-primary(type="submit", placeholder="Enviar", value="Suscribir")
    ul#emails
-    if(typeof(subscriptors)!="undefined")
-     each value in subscriptors
-      li
-       .text
-        span #{value.name} - #{value.email}
-        a.edit(href="#") Editar |
-        a.delete(href="#") Eliminar
-       form.edit.form.hidden(method="post", action="/save")
-        input(type="hidden", name="id", value="#{value._id}") 
-        input(type="text", name="name", value="#{value.name}") 
-        input(type="text", name="email", value="#{value.email}")
-        a.save(href="#") Guardar
-         small
-          a.cancel(href="#") Cancelar
+     if(typeof(subscriptors)!="undefined")
+      each value in subscriptors
+       li
+        .text
+         span #{value.name} - #{value.email}
+         a.edit(href="#")  Editar |  
+         a.delete(href="#")  Eliminar
+        form.edit.form-inline.hidden(method="post",action="/save") 
+          .form-group
+            input(type="hidden", name="id", value="#{value._id}")
+            input(class="form-control", type="text", name="name", value="#{value.name}")
+            input(class="form-control", type="text", name="email", value="#{value.email}")
+            a.save(class="btn btn-success", href="#") Guardar
+            small
+            a.cancel(class="btn btn-danger", href="#") Cancelar

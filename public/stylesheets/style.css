@@ -6,6 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
-.error{
-	color: #FF0000;
+.content{
+	margin: 10px;
+}
+input{
+	margin: 2px!important;
+}
+.btn{
+	margin: 2px;
 }
