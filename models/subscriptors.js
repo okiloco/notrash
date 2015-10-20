@@ -1,8 +1,9 @@
-var Mongo=require("mongodb"),
-Db=Mongo.Db,
-Server=Mongo.Server;
+var bson=require("bson");
+var mongodb=require("mongodb"),
+Db=mongodb.Db,
+Server=mongodb.Server;
 
-var ObjectID = Mongo.ObjectID;
+var ObjectID = mongodb.ObjectID;
 var dPort=27017,
 dHost="localhost",
 dbName="notrash";
@@ -18,6 +19,7 @@ SUS.db.open(function (e,d) {
 	}
 });
 SUS.subscriptors=SUS.db.collection('subscriptors');
+
 module.exports=SUS;
 
 SUS.create=function(newData,callback){
@@ -34,7 +36,6 @@ SUS.create=function(newData,callback){
 					}
 				});
 			});
-
 		}
 	});
 };
@@ -48,8 +49,7 @@ SUS.list=function(callback){
 	});
 }
 SUS.edit=function(newData,callback){
-
-	SUS.subscriptors.findOne({_id:this.getObjectId(newData.id)},function(e,obj){
+	SUS.subscriptors.findOne({_id:new mongodb.ObjectID(newData.id)},function(e,obj){
 		obj.name=newData.name;
 		obj.email=newData.email;
 		SUS.subscriptors.save(obj);
@@ -57,22 +57,11 @@ SUS.edit=function(newData,callback){
 	});
 }
 SUS.delete=function(id,callback){
-	// this.getObjectId(newData.id);
-	/*SUS.subscriptors.findOne({_id:this.getObjectId(id)},function(e,obj){
-		callback(e,obj);
-	});*/
-	SUS.subscriptors.remove({_id:new ObjectID(id)},function(e,obj){
+	SUS.subscriptors.remove({_id:new mongodb.ObjectID(id)},function(e,obj){
 		if(e){
 			callback(e);
 		}else{
 			callback(e,obj);
 		}
 	});
-}
-SUS.getObjectId=function(id){
-	// console.log(new ObjectID(id))
-	return ObjectID.createFromHexString(id);
-	// return ObjectID(id);
-	// return SUS.subscriptors.db.bson_serializer.ObjectID.createFromHexString(id);
-	// return SUS.subscriptors.db.bson_serializer.ObjectID.createFromHexString(id);
 }

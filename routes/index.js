@@ -25,10 +25,10 @@ module.exports=function(app){
 	app.post('/delete',function(req,res){
 		// console.log(req.body._id);
   		SU.delete(req.body.id,function(err,o){
-  			if(!o){
-  				res.send('Registro Eliminado con éxito',200);
-  			}else{
+  			if(err){
   				res.send('El registro no existe.',400);  				
+        }else{
+          res.send('Registro Eliminado con éxito',200);
   			}
 
   		});
