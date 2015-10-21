@@ -47,7 +47,17 @@ SUS.list=function(callback){
 			callback(null,res);
 		}
 	});
-}
+};
+SUS.listar=function(req, res){
+	SUS.subscriptors.find().toArray(function(e,result){
+		if(e){
+			callback(e);
+		}else{
+			console.log(result)
+			callback(result);
+		}
+	});
+};
 SUS.edit=function(newData,callback){
 	SUS.subscriptors.findOne({_id:new mongodb.ObjectID(newData.id)},function(e,obj){
 		obj.name=newData.name;

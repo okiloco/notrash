@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="MyFirstApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>	Tutorial Angular - Js</title>
+	<!-- <link rel="stylesheet" href=""> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+	<script src="controllers/main.js"></script>
+</head>
+<body ng-controller="firstController">
+	<input type="text" name="nombre" placeholder="Nombre" ng-model="nombre">
+	
+	<h3>posts</h3>
+	Search: <input type="text" ng-model="search.body">
+	<ul>
+		<li ng-repeat="post in posts | filter: search">
+			{{post.body}} - <strong>{{post.title}}</strong>
+		</li>
+	</ul>
+	<h3 ng-model="newPost.title">{{newPost.title}}</h3><br>
+	<input type="text" name="title" value="" placeholder="Titulo" ng-model="newPost.title"><br>
+	<textarea ng-model="newPost.body">
+	</textarea><br>
+	<button ng-click="addPost()">Enviar</button>
+</body>
+</html>
